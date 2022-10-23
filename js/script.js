@@ -15,9 +15,9 @@ function openMenuBurger() {
 	const burgerIcon = document.querySelector('.menu-icon')
 	const burgerBody = document.querySelector('.menu')
 
-		burgerBody.classList.toggle('_active')
-		document.body.classList.toggle('_lock')
-		burgerIcon.classList.toggle('_active')
+	burgerBody.classList.toggle('_active')
+	document.body.classList.toggle('_lock')
+	burgerIcon.classList.toggle('_active')
 	return
 }
 
@@ -45,7 +45,7 @@ if (burger && menu) {
 		menuItems.forEach(listItem => {
 			listItem.addEventListener('click', (e) => {
 				closeMenuBurger(listItem)
-				
+
 			})
 		})
 	})
@@ -54,7 +54,7 @@ if (burger && menu) {
 
 //---------------- filter
 function closeBlockFilter(blockFilter) {
-	
+
 	const icon = blockFilter.querySelector('.block-filter__icon')
 	const dropdown = blockFilter.querySelector('.block-filter__dropdown')
 	if (icon.classList.contains('_active')) {
@@ -67,7 +67,7 @@ function closeBlockFilter(blockFilter) {
 }
 
 function openBlockFilter(blockFilter) {
-	
+
 	const icon = blockFilter.querySelector('.block-filter__icon')
 	const dropdown = blockFilter.querySelector('.block-filter__dropdown')
 	if (!icon.classList.contains('_active')) {
@@ -113,7 +113,7 @@ if (filter) {
 				item.querySelector('.block-filter__value').textContent = event.target.textContent
 				closeBlockFilter(item)
 			}
-			
+
 		})
 	});
 }
@@ -122,30 +122,30 @@ if (filter) {
 const popularSlider = new Swiper('.popular-slider', {
 	spaceBetween: 20, // --відстань мід айтемами
 	slidesPerView: 1, //--кількість слайдів на сторінці
-  // Navigation arrows
-  navigation: {
-    nextEl: '.slider-item-next',
-    prevEl: '.slider-item-prev',
+	// Navigation arrows
+	navigation: {
+		nextEl: '.slider-item-next',
+		prevEl: '.slider-item-prev',
 	},
-	 breakpoints: {
-		 992: {
+	breakpoints: {
+		992: {
 			slidesPerView: 3
-		 },
-		 660:{
+		},
+		660: {
 			slidesPerView: 2
-		 }
-  }
+		}
+	}
 });
 
 const reviewsSlider = new Swiper('.slider-reviews', {
 	spaceBetween: 20, // --відстань мід айтемами
 	slidesPerView: 1, //--кількість слайдів на сторінці
 	autoHeight: true,
-	
-  // Navigation arrows
-  navigation: {
-    nextEl: '.slider-reviews-btn-next',
-    prevEl: '.slider-reviews-btn-prev',
+
+	// Navigation arrows
+	navigation: {
+		nextEl: '.slider-reviews-btn-next',
+		prevEl: '.slider-reviews-btn-prev',
 	},
 });
 
@@ -156,12 +156,81 @@ if (galleryItems) {
 		new Swiper(item, {
 			slidesPerView: 1,
 			autoplay: {
-				delay:3000,
+				delay: 3000,
 			},
 			allowTouchMove: false,
-			
+
 		})
 	})
+}
+
+
+//------------------- touch-pad
+function onPhone() {
+	const wrapper = document.querySelector('.wrapper')
+	const menu = document.querySelector('.menu')
+
+	wrapper.classList.add('_touch')
+	menu.classList.add('_hidden')
+
+	return
+}
+function onPC() {
+	const wrapper = document.querySelector('.wrapper')
+	const menu = document.querySelector('.menu')
+
+	wrapper.classList.remove('_touch')
+	menu.classList.remove('_hidden')
+
+	return
+}
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
+	.test(navigator.userAgent)) {
+	onPhone()
+	const header = document.querySelector('.header')
+	if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+		header.classList.add('_touch')
+	} else {
+		header.classList.remove('_touch')
+	}
+	window.onscroll = function () { fixedHeader() }
+
+	function fixedHeader() {
+		if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+			header.classList.add('_touch')
+		} else {
+			header.classList.remove('_touch')
+		}
+	}
+
+
+
+} else {
+	const btnToTop = document.querySelector('.btn-to-top')
+	onPC()
+	window.onscroll = function () { visibleBtnToTop() }
+
+	function visibleBtnToTop() {
+		if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+			btnToTop.classList.remove('_hide')
+		} else {
+			btnToTop.classList.add('_hide')
+		}
+	}
+	btnToTop.addEventListener('click', scrollToTop)
+	function scrollToTop(e) {
+		e.preventDefault()
+		const timerFunc = {
+			duration: 2000,
+
+		}
+		document.body.animate(scrollTo({ top: 0, behavior: 'smooth' }), '300')
+		document.documentElement.animate(scrollTo({ top: 0, behavior: 'smooth' }), '300')
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		})
+	}
 }
 
 

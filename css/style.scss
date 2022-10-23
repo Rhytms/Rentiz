@@ -14,6 +14,7 @@ $main-text-color:#fff;
 	box-sizing: border-box;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
+	scroll-behavior: smooth;
 }
 html,body{
 	height: 100%;
@@ -78,12 +79,60 @@ a{
 //------------------------- /media
 
 //---------------------------- header
+.wrapper{
+		&._touch{
+			.header{
+				top: -10%;
+				background: $bg-color;
+				z-index: 1000;
+				width: 100%;
+				transition: all 0.3s ease 0s;
+				&._touch{
+					top: -1px;
+					position:sticky;
+				}
+			}
+		}
+		
+	// }
+	
+}
+.btn-to-top{
+	position: relative;
+	width: 78px;
+	height: 78px;
+	border-radius:50%;
+	background:#121B25;
+	border:1px solid #A9ADB1;
+	position: fixed;
+	bottom: 20px;
+	right: 60px;
+	z-index: 100;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out 0s;
+	background: #0a1727 url('/img/icons/slider-arrow.svg') center center no-repeat;
+	background-size: 20%;
+	transform: rotate(90deg);
+	visibility: visible;
+	pointer-events: all;
+	opacity: 1;
+	&:hover{
+		background-color:#1c2d41;
+	}
+	&._hide{
+		bottom: -100px;
+		visibility: hidden;
+		pointer-events: none;
+		opacity: 0;
+	}
+
+}
 .header {
 	padding: 40px 0;
 	@media (max-width:992px) {
 		padding: 25px 0;
 	}
-		// .header__container
+	// .header__container
 		&__container {
 			display: flex;
 			justify-content: space-between;
@@ -144,12 +193,25 @@ a{
 		}
 	}
 .menu {
-
+	@media (max-width:993px) {
+		&._hidden{
+			visibility: hidden;
+			pointer-events: none;
+			opacity: 0;
+		}
+		
+	}
+	// height: 100%;
 	align-items: center;
+	&._active{
+		visibility: visible;
+		opacity: 1;
+		pointer-events: all;
+	}
 	@media (max-width:992px) {
 		position: absolute;
 		left: 0;
-		top: -100%;
+		top: -10%;
 		height: 100vh;
 		left: 50%;
 		transform: translateX(-50%);
@@ -217,10 +279,13 @@ a{
 		&__list {
 			display: flex;
 			align-items: center;
-			:not(:last-child){
+			>li{
 				margin-right: 40px;
 			}
 			@media (max-width:992px) {
+				>li{
+					margin-right: 0;
+				}
 				flex-direction: column;
 				:not(:last-child){
 					margin-right: 0;
@@ -1154,7 +1219,7 @@ margin-top: 68px;
 }
 .nav-footer {
 	@media (max-width:600px) {
-		margin-left: 80px;
+		margin-left: 20px;
 	}
 	@media (max-width:500px) {
 		justify-content: center;
@@ -1195,7 +1260,7 @@ margin-top: 68px;
 			&::before{
 				content: '';
 				height: 3px;
-				bottom: -5px;
+				bottom: 0px;
 				right: 0;
 				left: 0;
 				position: absolute;

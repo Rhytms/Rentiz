@@ -6,6 +6,7 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 html, body {
@@ -65,6 +66,49 @@ a {
     text-align: center;
     font-size: 30px;
   }
+}
+
+.wrapper._touch .header {
+  top: -10%;
+  background: #121B25;
+  z-index: 1000;
+  width: 100%;
+  transition: all 0.3s ease 0s;
+}
+.wrapper._touch .header._touch {
+  top: -1px;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.btn-to-top {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: #121B25;
+  border: 1px solid #A9ADB1;
+  position: fixed;
+  bottom: 20px;
+  right: 60px;
+  z-index: 100;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out 0s;
+  background: #0a1727 url("/img/icons/slider-arrow.svg") center center no-repeat;
+  background-size: 20%;
+  transform: rotate(90deg);
+  visibility: visible;
+  pointer-events: all;
+  opacity: 1;
+}
+.btn-to-top:hover {
+  background-color: #1c2d41;
+}
+.btn-to-top._hide {
+  bottom: -100px;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .header {
@@ -131,11 +175,23 @@ a {
 .menu {
   align-items: center;
 }
+@media (max-width: 993px) {
+  .menu._hidden {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+  }
+}
+.menu._active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
 @media (max-width: 992px) {
   .menu {
     position: absolute;
     left: 0;
-    top: -100%;
+    top: -10%;
     height: 100vh;
     left: 50%;
     transform: translateX(-50%);
@@ -206,13 +262,16 @@ a {
   display: flex;
   align-items: center;
 }
-.menu__list :not(:last-child) {
+.menu__list > li {
   margin-right: 40px;
 }
 @media (max-width: 992px) {
   .menu__list {
     flex-direction: column;
     margin: auto;
+  }
+  .menu__list > li {
+    margin-right: 0;
   }
   .menu__list :not(:last-child) {
     margin-right: 0;
@@ -1093,7 +1152,7 @@ a {
 }
 @media (max-width: 600px) {
   .nav-footer {
-    margin-left: 80px;
+    margin-left: 20px;
   }
 }
 @media (max-width: 500px) {
@@ -1133,7 +1192,7 @@ a {
 .nav-footer__text::before {
   content: "";
   height: 3px;
-  bottom: -5px;
+  bottom: 0px;
   right: 0;
   left: 0;
   position: absolute;
